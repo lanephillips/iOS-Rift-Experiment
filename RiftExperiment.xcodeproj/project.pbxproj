@@ -23,6 +23,7 @@
 		A688F79F17315AD800D0260E /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A688F79E17315AD800D0260E /* Shader.fsh */; };
 		A688F7A117315AD800D0260E /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A688F7A017315AD800D0260E /* Shader.vsh */; };
 		A688F7A417315AD800D0260E /* REViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A688F7A317315AD800D0260E /* REViewController.m */; };
+		A688F7AC1731649F00D0260E /* RERiftDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = A688F7AB1731649F00D0260E /* RERiftDisplay.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		A688F7A017315AD800D0260E /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		A688F7A217315AD800D0260E /* REViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = REViewController.h; sourceTree = "<group>"; };
 		A688F7A317315AD800D0260E /* REViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = REViewController.m; sourceTree = "<group>"; };
+		A688F7AA1731649F00D0260E /* RERiftDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RERiftDisplay.h; sourceTree = "<group>"; };
+		A688F7AB1731649F00D0260E /* RERiftDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RERiftDisplay.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				A688F7A017315AD800D0260E /* Shader.vsh */,
 				A688F7A217315AD800D0260E /* REViewController.h */,
 				A688F7A317315AD800D0260E /* REViewController.m */,
+				A688F7AA1731649F00D0260E /* RERiftDisplay.h */,
+				A688F7AB1731649F00D0260E /* RERiftDisplay.m */,
 				A688F78717315AD800D0260E /* Supporting Files */,
 			);
 			path = RiftExperiment;
@@ -197,6 +202,7 @@
 				A688F78D17315AD800D0260E /* main.m in Sources */,
 				A688F79117315AD800D0260E /* REAppDelegate.m in Sources */,
 				A688F7A417315AD800D0260E /* REViewController.m in Sources */,
+				A688F7AC1731649F00D0260E /* RERiftDisplay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
