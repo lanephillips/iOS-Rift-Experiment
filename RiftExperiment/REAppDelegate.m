@@ -8,6 +8,7 @@
 
 #import "REAppDelegate.h"
 #import "RERiftDisplay.h"
+#import "REViewController.h"
 
 @interface REAppDelegate ()
 <RERiftDisplayDelegate>
@@ -62,6 +63,7 @@
                       cancelButtonTitle:@"OK"
                       otherButtonTitles:nil]
      show];
+    
 }
 
 -(void)riftDidDisconnect:(RERiftDisplay *)rift

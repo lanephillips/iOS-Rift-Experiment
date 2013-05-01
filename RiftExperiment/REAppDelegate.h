@@ -13,3 +13,5 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @end
+
+#define APP ((REAppDelegate*)[UIApplication sharedApplication].delegate)

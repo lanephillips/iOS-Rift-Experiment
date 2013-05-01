@@ -7,6 +7,8 @@
 //
 
 #import "RERiftDisplay.h"
+#import "REViewController.h"
+#import "REAppDelegate.h"
 
 @interface RERiftDisplay ()
 {
@@ -64,8 +66,9 @@
         _window.screen = _screen;
         
         // TODO: Set up initial content to display...
-        _window.backgroundColor = _debugColors[_connectCount];
-        _connectCount = (_connectCount + 1) % _debugColors.count;
+        REViewController* vc = [APP.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+        _window.rootViewController = vc;
+        [_window addSubview:vc.view];
         
         // Show the window.
         _window.hidden = NO;

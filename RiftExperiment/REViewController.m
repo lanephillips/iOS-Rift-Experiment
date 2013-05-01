@@ -388,4 +388,11 @@ GLfloat gCubeVertexData[216] =
     return YES;
 }
 
+#pragma mark - auto rotation
+
+//-(NSUInteger)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskLandscape;
+//}
+
 @end
