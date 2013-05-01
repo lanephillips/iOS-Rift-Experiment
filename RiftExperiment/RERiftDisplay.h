@@ -13,13 +13,13 @@
 @protocol RERiftDisplayDelegate <NSObject>
 
 @optional
--(void)riftDidConnect:(RERiftDisplay*)rift;
--(void)riftDidDisconnect:(RERiftDisplay*)rift;
+-(void)riftWillAppear:(RERiftDisplay*)rift;
+-(void)riftWillDisappear:(RERiftDisplay*)rift;
 
 @end
 
-#define kRERiftDidConnectNotification (@"RERiftDidConnectNotification")
-#define kRERiftDidDisconnectNotification (@"RERiftDidDisconnectNotification")
+#define kRERiftWillAppearNotification (@"RERiftWillAppearNotification")
+#define kRERiftWillDisappearNotification (@"RERiftWillDisappearNotification")
 
 @interface RERiftDisplay : NSObject
 

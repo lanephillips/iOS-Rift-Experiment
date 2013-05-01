@@ -54,29 +54,18 @@
 
 #pragma mark - rift delegate
 
--(void)riftDidConnect:(RERiftDisplay *)rift
+-(void)riftWillAppear:(RERiftDisplay *)rift
 {
-    // TODO: not getting called
-    NSLog(@"display connected");
-    [[[UIAlertView alloc] initWithTitle:@"Rift"
-                                message:@"Connected!"
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil]
-     show];
-    
+    NSLog(@"riftWillAppear");
+    REViewController* vc = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+    rift.window.rootViewController = vc;
+    vc.view.frame = rift.window.bounds;
+    [rift.window addSubview:vc.view];
 }
 
--(void)riftDidDisconnect:(RERiftDisplay *)rift
+-(void)riftWillDisappear:(RERiftDisplay *)rift
 {
-    // TODO: not getting called
-    NSLog(@"display disconnected");
-    [[[UIAlertView alloc] initWithTitle:@"Rift"
-                                message:@"Disconnected!"
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil]
-     show];
+    NSLog(@"riftWillDisappear");
 }
 
 @end

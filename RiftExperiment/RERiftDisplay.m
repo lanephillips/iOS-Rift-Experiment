@@ -26,6 +26,7 @@
     static RERiftDisplay* _rift = nil;
     if (!_rift) {
         _rift = [[RERiftDisplay alloc] init];
+        NSLog(@"created rift object: %@", _rift);
     }
     return _rift;
 }
@@ -84,18 +85,22 @@
         _window.screen = _screen;
         
         // Set up initial content to display...
-        REViewController* vc = [APP.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
-        _window.rootViewController = vc;
-        vc.view.frame = _window.bounds;
-        [_window addSubview:vc.view];
+//        REViewController* vc = [APP.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+//        _window.rootViewController = vc;
+//        vc.view.frame = _window.bounds;
+//        [_window addSubview:vc.view];
         
         // Show the window.
         _window.hidden = NO;
+        
+        [self postConnectNotification];
     } else {
         NSLog(@"external screen not found");
         _screen = nil;
         _window.hidden = YES;
         _window = nil;
+        
+        [self postDisonnectNotification];
     }
 }
 
@@ -111,18 +116,20 @@
 
 -(void)postConnectNotification
 {
-    if ([_delegate respondsToSelector:@selector(riftDidConnect:)])
-        [_delegate riftDidConnect:self];
+    NSLog(@"delegate: %@", _delegate);
+    if ([_delegate respondsToSelector:@selector(riftWillAppear:)])
+        [_delegate riftWillAppear:self];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftDidConnectNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftWillAppearNotification object:self];
 }
 
 -(void)postDisonnectNotification
 {
-    if ([_delegate respondsToSelector:@selector(riftDidDisconnect:)])
-        [_delegate riftDidDisconnect:self];
+    NSLog(@"delegate: %@", _delegate);
+    if ([_delegate respondsToSelector:@selector(riftWillDisappear:)])
+        [_delegate riftWillDisappear:self];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftDidDisconnectNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftWillDisappearNotification object:self];
 }
 
 @end
