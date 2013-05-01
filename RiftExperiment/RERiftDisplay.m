@@ -57,6 +57,7 @@
 {
     if ([[UIScreen screens] count] > 1)
     {
+        NSLog(@"found external screen");
         // Get the screen object that represents the external display.
         _screen = [[UIScreen screens] objectAtIndex:1];
         // Get the screen's bounds so that you can create a window of the correct size.
@@ -73,6 +74,7 @@
         // Show the window.
         _window.hidden = NO;
     } else {
+        NSLog(@"external screen not found");
         _screen = nil;
         _window.hidden = YES;
         _window = nil;

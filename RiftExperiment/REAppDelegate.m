@@ -56,6 +56,7 @@
 
 -(void)riftDidConnect:(RERiftDisplay *)rift
 {
+    // TODO: not getting called
     NSLog(@"display connected");
     [[[UIAlertView alloc] initWithTitle:@"Rift"
                                 message:@"Connected!"
@@ -68,6 +69,7 @@
 
 -(void)riftDidDisconnect:(RERiftDisplay *)rift
 {
+    // TODO: not getting called
     NSLog(@"display disconnected");
     [[[UIAlertView alloc] initWithTitle:@"Rift"
                                 message:@"Disconnected!"
