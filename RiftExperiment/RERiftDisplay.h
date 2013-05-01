@@ -29,7 +29,6 @@
 
 @property (nonatomic) NSObject<RERiftDisplayDelegate>* delegate;
 
-// the shared instance
-+(RERiftDisplay*)rift;
+-(id)initWithDelegate:(NSObject<RERiftDisplayDelegate>*)delegate;
 
 @end

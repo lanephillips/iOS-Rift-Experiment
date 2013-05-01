@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RERiftDisplay.h"
 
 @interface REAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, readonly) RERiftDisplay* rift;
 
 @end
 

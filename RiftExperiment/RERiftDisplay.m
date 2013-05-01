@@ -7,35 +7,20 @@
 //
 
 #import "RERiftDisplay.h"
-#import "REViewController.h"
-#import "REAppDelegate.h"
 
 @interface RERiftDisplay ()
 {
-    // for debugging: cycle colors on connect/disconnect
-    NSArray* _debugColors;
-    int _connectCount;
 }
 
 @end
 
 @implementation RERiftDisplay
 
-+(RERiftDisplay *)rift
-{
-    static RERiftDisplay* _rift = nil;
-    if (!_rift) {
-        _rift = [[RERiftDisplay alloc] init];
-        NSLog(@"created rift object: %@", _rift);
-    }
-    return _rift;
-}
-
--(id)init
+-(id)initWithDelegate:(NSObject<RERiftDisplayDelegate> *)delegate
 {
     self = [super init];
     if (self) {
-        _debugColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor magentaColor], [UIColor yellowColor], [UIColor cyanColor]];
+        _delegate = delegate;
         
         [self checkForScreen];
         
@@ -54,6 +39,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+// TODO: avoid initializing multiple times, and sending duplicate notifications
 -(void)checkForScreen
 {
     if ([[UIScreen screens] count] > 1)
@@ -85,15 +71,10 @@
         _window.screen = _screen;
         
         // Set up initial content to display...
-//        REViewController* vc = [APP.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
-//        _window.rootViewController = vc;
-//        vc.view.frame = _window.bounds;
-//        [_window addSubview:vc.view];
+        [self postConnectNotification];
         
         // Show the window.
         _window.hidden = NO;
-        
-        [self postConnectNotification];
     } else {
         NSLog(@"external screen not found");
         _screen = nil;
