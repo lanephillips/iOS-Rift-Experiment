@@ -10,29 +10,17 @@
 
 @interface RERiftDisplay ()
 {
-    // for debugging: cycle colors on connect/disconnect
-    NSArray* _debugColors;
-    int _connectCount;
 }
 
 @end
 
 @implementation RERiftDisplay
 
-+(RERiftDisplay *)rift
-{
-    static RERiftDisplay* _rift = nil;
-    if (!_rift) {
-        _rift = [[RERiftDisplay alloc] init];
-    }
-    return _rift;
-}
-
--(id)init
+-(id)initWithDelegate:(NSObject<RERiftDisplayDelegate> *)delegate
 {
     self = [super init];
     if (self) {
-        _debugColors = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor magentaColor], [UIColor yellowColor], [UIColor cyanColor]];
+        _delegate = delegate;
         
         [self checkForScreen];
         
@@ -51,28 +39,49 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+// TODO: avoid initializing multiple times, and sending duplicate notifications
 -(void)checkForScreen
 {
     if ([[UIScreen screens] count] > 1)
     {
+        NSLog(@"found external screen");
         // Get the screen object that represents the external display.
         _screen = [[UIScreen screens] objectAtIndex:1];
+        
+        NSLog(@"display modes:");
+        UIScreenMode* match = nil;
+        for (UIScreenMode* mode in _screen.availableModes) {
+            NSLog(@"\t%@ %f", NSStringFromCGSize(mode.size), mode.pixelAspectRatio);
+            if (mode.size.width == 1280 &&
+                // right now it's giving me 1280 x 720 as the only 1280-wide option
+                (!match || (mode.size.height > match.size.height && mode.size.height <= 800)))
+                match = mode;
+        }
+        if (match) {
+            NSLog(@"changing mode");
+            _screen.currentMode = match;
+        }
+        NSLog(@"current mode: %@ %f", NSStringFromCGSize(_screen.currentMode.size), _screen.currentMode.pixelAspectRatio);
+        
         // Get the screen's bounds so that you can create a window of the correct size.
         CGRect screenBounds = _screen.bounds;
+        NSLog(@"current bounds: %@", NSStringFromCGRect(screenBounds));
         
         _window = [[UIWindow alloc] initWithFrame:screenBounds];
         _window.screen = _screen;
         
-        // TODO: Set up initial content to display...
-        _window.backgroundColor = _debugColors[_connectCount];
-        _connectCount = (_connectCount + 1) % _debugColors.count;
+        // Set up initial content to display...
+        [self postConnectNotification];
         
         // Show the window.
         _window.hidden = NO;
     } else {
+        NSLog(@"external screen not found");
         _screen = nil;
         _window.hidden = YES;
         _window = nil;
+        
+        [self postDisonnectNotification];
     }
 }
 
@@ -88,18 +97,20 @@
 
 -(void)postConnectNotification
 {
-    if ([_delegate respondsToSelector:@selector(riftDidConnect:)])
-        [_delegate riftDidConnect:self];
+    NSLog(@"delegate: %@", _delegate);
+    if ([_delegate respondsToSelector:@selector(riftWillAppear:)])
+        [_delegate riftWillAppear:self];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftDidConnectNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftWillAppearNotification object:self];
 }
 
 -(void)postDisonnectNotification
 {
-    if ([_delegate respondsToSelector:@selector(riftDidDisconnect:)])
-        [_delegate riftDidDisconnect:self];
+    NSLog(@"delegate: %@", _delegate);
+    if ([_delegate respondsToSelector:@selector(riftWillDisappear:)])
+        [_delegate riftWillDisappear:self];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftDidDisconnectNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftWillDisappearNotification object:self];
 }
 
 @end

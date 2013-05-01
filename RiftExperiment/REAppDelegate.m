@@ -8,6 +8,7 @@
 
 #import "REAppDelegate.h"
 #import "RERiftDisplay.h"
+#import "REViewController.h"
 
 @interface REAppDelegate ()
 <RERiftDisplayDelegate>
@@ -19,6 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    _rift = [[RERiftDisplay alloc] initWithDelegate:self];
+    
     return YES;
 }
 							
@@ -26,7 +29,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    [RERiftDisplay rift].delegate = nil;
+    _rift.delegate = nil;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -43,7 +46,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [RERiftDisplay rift].delegate = self;
+    _rift.delegate = self;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -53,26 +56,18 @@
 
 #pragma mark - rift delegate
 
--(void)riftDidConnect:(RERiftDisplay *)rift
+-(void)riftWillAppear:(RERiftDisplay *)rift
 {
-    NSLog(@"display connected");
-    [[[UIAlertView alloc] initWithTitle:@"Rift"
-                                message:@"Connected!"
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil]
-     show];
+    NSLog(@"riftWillAppear");
+    REViewController* vc = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+    rift.window.rootViewController = vc;
+    vc.view.frame = rift.window.bounds;
+    [rift.window addSubview:vc.view];
 }
 
--(void)riftDidDisconnect:(RERiftDisplay *)rift
+-(void)riftWillDisappear:(RERiftDisplay *)rift
 {
-    NSLog(@"display disconnected");
-    [[[UIAlertView alloc] initWithTitle:@"Rift"
-                                message:@"Disconnected!"
-                               delegate:nil
-                      cancelButtonTitle:@"OK"
-                      otherButtonTitles:nil]
-     show];
+    NSLog(@"riftWillDisappear");
 }
 
 @end
