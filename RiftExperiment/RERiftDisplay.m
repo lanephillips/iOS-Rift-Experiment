@@ -60,15 +60,33 @@
         NSLog(@"found external screen");
         // Get the screen object that represents the external display.
         _screen = [[UIScreen screens] objectAtIndex:1];
+        
+        NSLog(@"display modes:");
+        UIScreenMode* match = nil;
+        for (UIScreenMode* mode in _screen.availableModes) {
+            NSLog(@"\t%@ %f", NSStringFromCGSize(mode.size), mode.pixelAspectRatio);
+            if (mode.size.width == 1280 &&
+                // right now it's giving me 1280 x 720 as the only 1280-wide option
+                (!match || (mode.size.height > match.size.height && mode.size.height <= 800)))
+                match = mode;
+        }
+        if (match) {
+            NSLog(@"changing mode");
+            _screen.currentMode = match;
+        }
+        NSLog(@"current mode: %@ %f", NSStringFromCGSize(_screen.currentMode.size), _screen.currentMode.pixelAspectRatio);
+        
         // Get the screen's bounds so that you can create a window of the correct size.
         CGRect screenBounds = _screen.bounds;
+        NSLog(@"current bounds: %@", NSStringFromCGRect(screenBounds));
         
         _window = [[UIWindow alloc] initWithFrame:screenBounds];
         _window.screen = _screen;
         
-        // TODO: Set up initial content to display...
+        // Set up initial content to display...
         REViewController* vc = [APP.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
         _window.rootViewController = vc;
+        vc.view.frame = _window.bounds;
         [_window addSubview:vc.view];
         
         // Show the window.
