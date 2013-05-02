@@ -28,6 +28,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
 
 @class RERiftDisplay;
 
@@ -42,11 +43,35 @@
 #define kRERiftWillAppearNotification (@"RERiftWillAppearNotification")
 #define kRERiftWillDisappearNotification (@"RERiftWillDisappearNotification")
 
+typedef enum {
+    RELeftEye = 0,
+    RERightEye = 1
+} REEye;
+
 @interface RERiftDisplay : NSObject
 
 // the screen and window for the connected device, or nil if not connected
 @property (readonly,nonatomic) UIScreen* screen;
 @property (readonly,nonatomic) UIWindow* window;
+
+// these properties come from the Rift docs
+@property (readonly,nonatomic) CGFloat hScreenSize;
+@property (readonly,nonatomic) CGFloat vScreenSize;
+@property (readonly,nonatomic) CGFloat vScreenCenter;
+@property (readonly,nonatomic) CGFloat eyeToScreenDistance;
+@property (readonly,nonatomic) CGFloat lensSeparationDistance;
+@property (readonly,nonatomic) const CGFloat* distortionK;
+// user configurable, defaults to 64mm
+@property (nonatomic) CGFloat interpupillaryDistance;
+// set to the logical UI resolution, since it may not match the physical screen
+@property (nonatomic) CGSize resolution;
+
+// these are updated if any of the above change
+@property (readonly,nonatomic) CGFloat aspect;
+@property (readonly,nonatomic) CGFloat yFOV;
+@property (readonly,nonatomic) const GLKMatrix4* projectionMatrices;
+// multiply on the left of the view center to get the viewing matrix for this eye
+@property (readonly,nonatomic) const GLKMatrix4* viewMatrices;
 
 @property (nonatomic) NSObject<RERiftDisplayDelegate>* delegate;
 

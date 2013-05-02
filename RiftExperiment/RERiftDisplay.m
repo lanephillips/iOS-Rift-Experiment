@@ -31,6 +31,8 @@
 
 @interface RERiftDisplay ()
 {
+    GLKMatrix4 _mutableProjectionMatrices[2];
+    GLKMatrix4 _mutableViewMatrices[2];
 }
 
 @end
@@ -43,6 +45,7 @@
     if (self) {
         _delegate = delegate;
         
+        [self setDefaultValues];
         [self checkForScreen];
         
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -132,6 +135,70 @@
         [_delegate riftWillDisappear:self];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kRERiftWillDisappearNotification object:self];
+}
+
+-(void)setInterpupillaryDistance:(CGFloat)interpupillaryDistance
+{
+    if (_interpupillaryDistance != interpupillaryDistance) {
+        _interpupillaryDistance = interpupillaryDistance;
+        [self updateProperties];
+    }
+}
+
+-(void)setResolution:(CGSize)resolution
+{
+    if (_resolution.width != _resolution.width || _resolution.height != _resolution.height) {
+        _resolution = resolution;
+        [self updateProperties];
+    }
+}
+
+-(void)setDefaultValues
+{
+    // TODO: there will be other Rifts, can we detect them?
+    _hScreenSize = 0.14976f;
+    _vScreenSize = 0.0936f;
+    _vScreenCenter = _vScreenSize / 2;
+    _eyeToScreenDistance = 0.041f;
+    _lensSeparationDistance = 0.0635f;
+    static const float k[] = { 1.0f, 0.22f, 0.24f };
+    _distortionK = k;
+    _interpupillaryDistance = 0.064f;
+    _resolution = CGSizeMake(1280, 800);
+    
+    [self updateProperties];
+}
+
+-(void)updateProperties
+{
+    // code from rift docs
+    
+    // Compute Aspect Ratio. Stereo mode cuts width in half.
+    _aspect = _resolution.width * 0.5 / _resolution.height;
+    
+    // Compute Vertical FOV based on distance.
+    _yFOV = 2 * atanf(_vScreenCenter / _eyeToScreenDistance);
+    
+    // Post-projection viewport coordinates range from (-1.0, 1.0), with the
+    // center of the left viewport falling at (1/4) of horizontal screen size.
+    // We need to shift this projection center to match with the lens center.
+    // We compute this shift in physical units (meters) to correct
+    // for different screen sizes and then rescale to viewport coordinates.
+    float viewCenter = _hScreenSize * 0.25f;
+    float eyeProjectionShift = viewCenter - _lensSeparationDistance*0.5f;
+    float projectionCenterOffset = 4.0f * eyeProjectionShift / _hScreenSize;
+    
+    // Projection matrix for the "center eye", which the left/right matrices are based on.
+    GLKMatrix4 projCenter = GLKMatrix4MakePerspective(_yFOV, _aspect, 0.3f, 1000.0f);
+    _mutableProjectionMatrices[0] = GLKMatrix4Multiply(GLKMatrix4MakeTranslation( projectionCenterOffset, 0, 0), projCenter);
+    _mutableProjectionMatrices[1] = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(-projectionCenterOffset, 0, 0), projCenter);
+    _projectionMatrices = _mutableProjectionMatrices;
+    
+    // View transformation translation in world units.
+    float halfIPD = _interpupillaryDistance * 0.5f;
+    _mutableViewMatrices[0] = GLKMatrix4MakeTranslation( halfIPD, 0, 0);
+    _mutableViewMatrices[1] = GLKMatrix4MakeTranslation(-halfIPD, 0, 0);
+    _viewMatrices = _mutableViewMatrices;
 }
 
 @end
