@@ -29,7 +29,7 @@
 
 #import "REAppDelegate.h"
 #import "RERiftDisplay.h"
-#import "REViewController.h"
+#import "RERiftViewController.h"
 
 @interface REAppDelegate ()
 <RERiftDisplayDelegate>
@@ -80,7 +80,7 @@
 -(void)riftWillAppear:(RERiftDisplay *)rift
 {
     NSLog(@"riftWillAppear");
-    REViewController* vc = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+    RERiftViewController* vc = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
     rift.window.rootViewController = vc;
     vc.view.frame = rift.window.bounds;
     [rift.window addSubview:vc.view];

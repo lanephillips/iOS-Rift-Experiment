@@ -1,5 +1,5 @@
 //
-//  REViewController.h
+//  RERiftViewController.h
 //  RiftExperiment
 //
 //  Created by Lane Phillips on 5/1/13.
@@ -30,6 +30,6 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
-@interface REViewController : GLKViewController
+@interface RERiftViewController : GLKViewController
 
 @end
