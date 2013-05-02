@@ -104,7 +104,11 @@ GLfloat gCubeVertexData[216] =
     
     GLuint _vertexArray;
     GLuint _vertexBuffer;
+    
+    CGFloat _vieww;
+    CGFloat _viewh;
 }
+
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) GLKBaseEffect *effect;
 
@@ -122,6 +126,8 @@ GLfloat gCubeVertexData[216] =
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.contentScaleFactor = 1.0; // not drawing on Retina
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
 
@@ -161,6 +167,13 @@ GLfloat gCubeVertexData[216] =
     }
 
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillLayoutSubviews
+{
+    _vieww = self.view.contentScaleFactor * self.view.bounds.size.width / 2;
+    _viewh = self.view.contentScaleFactor * self.view.bounds.size.height;
+    NSLog(@"viewport size %d x %d", _vieww, _viewh);
 }
 
 - (void)setupGL
@@ -209,7 +222,7 @@ GLfloat gCubeVertexData[216] =
 
 - (void)update
 {
-    float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+    float aspect = fabsf(_vieww / 2.0f / _viewh);
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
     self.effect.transform.projectionMatrix = projectionMatrix;
@@ -241,20 +254,26 @@ GLfloat gCubeVertexData[216] =
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    glBindVertexArrayOES(_vertexArray);
+    for (int eye = 0; eye < 2; eye++) {
+        BOOL left = (eye == 0);
+        
+        glViewport(left? 0 : _vieww, 0, _vieww, _viewh);
     
-    // Render the object with GLKit
-    [self.effect prepareToDraw];
-    
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    
-    // Render the object again with ES2
-    glUseProgram(_program);
-    
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
-    
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArrayOES(_vertexArray);
+        
+        // Render the object with GLKit
+        [self.effect prepareToDraw];
+        
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        
+        // Render the object again with ES2
+        glUseProgram(_program);
+        
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+        
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+    }
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
