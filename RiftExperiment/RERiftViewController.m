@@ -1,5 +1,5 @@
 //
-//  REViewController.m
+//  RERiftViewController.m
 //  RiftExperiment
 //
 //  Created by Lane Phillips on 5/1/13.
@@ -27,7 +27,7 @@
 //  THE SOFTWARE.
 //
 
-#import "REViewController.h"
+#import "RERiftViewController.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -95,7 +95,7 @@ GLfloat gCubeVertexData[216] =
     -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
 };
 
-@interface REViewController () {
+@interface RERiftViewController () {
     GLuint _program;
     
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -121,7 +121,7 @@ GLfloat gCubeVertexData[216] =
 - (BOOL)validateProgram:(GLuint)prog;
 @end
 
-@implementation REViewController
+@implementation RERiftViewController
 
 - (void)viewDidLoad
 {
