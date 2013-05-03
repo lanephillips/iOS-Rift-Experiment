@@ -90,6 +90,7 @@
         // Get the screen's bounds so that you can create a window of the correct size.
         CGRect screenBounds = _screen.bounds;
         NSLog(@"current bounds: %@", NSStringFromCGRect(screenBounds));
+        self.resolution = screenBounds.size;
         
         _window = [[UIWindow alloc] initWithFrame:screenBounds];
         _window.screen = _screen;

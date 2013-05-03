@@ -28,6 +28,7 @@
 //
 
 #import "RERiftViewController.h"
+#import "REAppDelegate.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -173,7 +174,7 @@ GLfloat gCubeVertexData[216] =
 {
     _vieww = self.view.contentScaleFactor * self.view.bounds.size.width / 2;
     _viewh = self.view.contentScaleFactor * self.view.bounds.size.height;
-    NSLog(@"viewport size %d x %d", _vieww, _viewh);
+    NSLog(@"viewport size %f x %f", _vieww, _viewh);
 }
 
 - (void)setupGL
@@ -222,8 +223,7 @@ GLfloat gCubeVertexData[216] =
 
 - (void)update
 {
-    float aspect = fabsf(_vieww / 2.0f / _viewh);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+    GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[RERightEye];
     
     self.effect.transform.projectionMatrix = projectionMatrix;
     
