@@ -232,14 +232,12 @@ GLfloat gCubeVertexData[216] =
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     for (int eye = 0; eye < 2; eye++) {
-        BOOL left = (eye == 0);
-        
-        glViewport(left? 0 : _vieww, 0, _vieww, _viewh);
+        glViewport(eye == RELeftEye? 0 : _vieww, 0, _vieww, _viewh);
     
         glBindVertexArrayOES(_vertexArray);
 
         // begin copied
-        GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[RELeftEye];
+        GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[eye];
         
         self.effect.transform.projectionMatrix = projectionMatrix;
         
@@ -250,7 +248,7 @@ GLfloat gCubeVertexData[216] =
         GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
         modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
         modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[RELeftEye], modelViewMatrix);
+        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[eye], modelViewMatrix);
         
         self.effect.transform.modelviewMatrix = modelViewMatrix;
         // end copied
@@ -265,7 +263,7 @@ GLfloat gCubeVertexData[216] =
         modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
         modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
         modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[RELeftEye], modelViewMatrix);
+        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[eye], modelViewMatrix);
         
         _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
         
