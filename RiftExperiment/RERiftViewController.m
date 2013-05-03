@@ -223,7 +223,7 @@ GLfloat gCubeVertexData[216] =
 
 - (void)update
 {
-    GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[RERightEye];
+    GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[RELeftEye];
     
     self.effect.transform.projectionMatrix = projectionMatrix;
     
@@ -234,6 +234,7 @@ GLfloat gCubeVertexData[216] =
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+    modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[RELeftEye], modelViewMatrix);
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
     
@@ -241,6 +242,7 @@ GLfloat gCubeVertexData[216] =
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+    modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[RELeftEye], modelViewMatrix);
     
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
