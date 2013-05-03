@@ -28,6 +28,7 @@
 //
 
 #import "RERiftViewController.h"
+#import "REAppDelegate.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -173,7 +174,7 @@ GLfloat gCubeVertexData[216] =
 {
     _vieww = self.view.contentScaleFactor * self.view.bounds.size.width / 2;
     _viewh = self.view.contentScaleFactor * self.view.bounds.size.height;
-    NSLog(@"viewport size %d x %d", _vieww, _viewh);
+    NSLog(@"viewport size %f x %f", _vieww, _viewh);
 }
 
 - (void)setupGL
@@ -222,30 +223,6 @@ GLfloat gCubeVertexData[216] =
 
 - (void)update
 {
-    float aspect = fabsf(_vieww / 2.0f / _viewh);
-    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-    
-    self.effect.transform.projectionMatrix = projectionMatrix;
-    
-    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
-    
-    // Compute the model view matrix for the object rendered with GLKit
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
-    self.effect.transform.modelviewMatrix = modelViewMatrix;
-    
-    // Compute the model view matrix for the object rendered with ES2
-    modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
-    modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
-    
-    _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
-    
-    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-    
     _rotation += self.timeSinceLastUpdate * 0.5f;
 }
 
@@ -255,16 +232,39 @@ GLfloat gCubeVertexData[216] =
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     for (int eye = 0; eye < 2; eye++) {
-        BOOL left = (eye == 0);
-        
-        glViewport(left? 0 : _vieww, 0, _vieww, _viewh);
+        glViewport(eye == RELeftEye? 0 : _vieww, 0, _vieww, _viewh);
     
         glBindVertexArrayOES(_vertexArray);
+
+        GLKMatrix4 projectionMatrix = APP.rift.projectionMatrices[eye];
         
+        self.effect.transform.projectionMatrix = projectionMatrix;
+        
+        GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+        baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+        
+        // Compute the model view matrix for the object rendered with GLKit
+        GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
+        modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+        modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[eye], modelViewMatrix);
+        
+        self.effect.transform.modelviewMatrix = modelViewMatrix;
+
         // Render the object with GLKit
         [self.effect prepareToDraw];
         
         glDrawArrays(GL_TRIANGLES, 0, 36);
+        
+        // Compute the model view matrix for the object rendered with ES2
+        modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+        modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+        modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+        modelViewMatrix = GLKMatrix4Multiply(APP.rift.viewMatrices[eye], modelViewMatrix);
+        
+        _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
+        
+        _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
         
         // Render the object again with ES2
         glUseProgram(_program);
