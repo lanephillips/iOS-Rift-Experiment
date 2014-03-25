@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="e6S-bd-6rY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="e6S-bd-6rY">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Touch View Controller-->
         <scene sceneID="Uvn-dR-4E2">
             <objects>
                 <viewController storyboardIdentifier="touchView" id="e6S-bd-6rY" customClass="RETouchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MQq-Ov-QDT"/>
+                        <viewControllerLayoutGuide type="bottom" id="luG-m2-Hp5"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="S4P-Hc-A1U">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="C2E-40-P3T">
-                                <rect key="frame" x="20" y="20" width="149" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2E-40-P3T">
+                                <rect key="frame" x="20" y="20" width="30" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" id="uMa-II-HGE">
-                                <rect key="frame" x="178" y="282" width="320" height="460"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMa-II-HGE">
+                                <rect key="frame" x="20" y="49" width="728" height="955"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="jSZ-on-BOh">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSZ-on-BOh">
                                 <rect key="frame" x="20" y="49" width="728" height="955"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -34,6 +39,18 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="leading" secondItem="uMa-II-HGE" secondAttribute="leading" id="70q-5E-LB2"/>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="leading" secondItem="S4P-Hc-A1U" secondAttribute="leading" constant="20" id="FE2-rX-9jC"/>
+                            <constraint firstItem="C2E-40-P3T" firstAttribute="leading" secondItem="S4P-Hc-A1U" secondAttribute="leading" constant="20" id="FZL-W1-Xop"/>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="top" secondItem="C2E-40-P3T" secondAttribute="bottom" constant="8" id="HFq-KC-XPE"/>
+                            <constraint firstItem="C2E-40-P3T" firstAttribute="top" secondItem="MQq-Ov-QDT" secondAttribute="bottom" id="Njq-J5-P3X"/>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="trailing" secondItem="uMa-II-HGE" secondAttribute="trailing" id="Xjh-ct-QTo"/>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="bottom" secondItem="uMa-II-HGE" secondAttribute="bottom" id="ivl-tR-bgP"/>
+                            <constraint firstItem="luG-m2-Hp5" firstAttribute="top" secondItem="jSZ-on-BOh" secondAttribute="bottom" constant="20" id="mBl-cd-rGR"/>
+                            <constraint firstItem="jSZ-on-BOh" firstAttribute="top" secondItem="uMa-II-HGE" secondAttribute="top" id="olw-Pt-N71"/>
+                            <constraint firstAttribute="trailing" secondItem="jSZ-on-BOh" secondAttribute="trailing" constant="20" id="pQD-4h-dtr"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="logView" destination="jSZ-on-BOh" id="dcj-cp-JYW"/>
@@ -48,14 +65,19 @@
         <scene sceneID="t2g-Za-goM">
             <objects>
                 <viewController storyboardIdentifier="riftView" autoresizesArchivedViewToFullSize="NO" id="uxZ-ts-QZb" customClass="RERiftViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KAy-C0-DZf"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Mp-Dn-VvY"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7F9-ji-4Ff" customClass="GLKView">
-                        <rect key="frame" x="0.0" y="0.0" width="1280" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1280" height="720"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYQ-Cw-jSD" sceneMemberID="firstResponder"/>
             </objects>
@@ -63,7 +85,7 @@
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <nil key="statusBar"/>
+        <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
