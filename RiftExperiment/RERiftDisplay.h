@@ -40,8 +40,8 @@
 
 @end
 
-#define kRERiftWillAppearNotification (@"RERiftWillAppearNotification")
-#define kRERiftWillDisappearNotification (@"RERiftWillDisappearNotification")
+extern NSString* const RERiftWillAppearNotification;
+extern NSString* const RERiftWillDisappearNotification;
 
 typedef enum {
     RELeftEye = 0,

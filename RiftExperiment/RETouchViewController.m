@@ -32,49 +32,43 @@
 #import <asl.h>
 
 @interface RETouchViewController ()
-{
-    // TODO: hacky, query log periodically, does ASL provide some sort of callback?
-    NSTimer* _logTimer;
-}
+
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
+@property (weak, nonatomic) IBOutlet UITextView *logView;
+
+// TODO: hacky, query log periodically, does ASL provide some sort of callback?
+@property (nonatomic) NSTimer* logTimer;
+
 @end
 
 @implementation RETouchViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    _logView.text = @"";
+    self.logView.text = @"";
 
-    _shadowView.frame = _logView.frame;
-    _shadowView.clipsToBounds = NO;
-    _shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
-    _shadowView.layer.shadowOpacity = 0.6f;
-    _shadowView.layer.shadowRadius = 5.0f;
+    self.shadowView.frame = self.logView.frame;
+    self.shadowView.clipsToBounds = NO;
+    self.shadowView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.shadowView.layer.shadowOpacity = 0.6f;
+    self.shadowView.layer.shadowRadius = 5.0f;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    _logTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerFire:) userInfo:nil repeats:YES];
+    self.logTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerFire:) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [_logTimer invalidate];
-    _logTimer = nil;
+    [self.logTimer invalidate];
+    self.logTimer = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +103,7 @@
     }
     aslresponse_free(r);
     
-    _logView.text = s;
+    self.logView.text = s;
 }
 
 -(void)timerFire:(NSTimer*)timer

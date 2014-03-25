@@ -50,7 +50,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    _rift.delegate = nil;
+    self.rift.delegate = nil;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -67,7 +67,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    _rift.delegate = self;
+    self.rift.delegate = self;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -80,7 +80,7 @@
 -(void)riftWillAppear:(RERiftDisplay *)rift
 {
     NSLog(@"riftWillAppear");
-    RERiftViewController* vc = [_window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
+    RERiftViewController* vc = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"riftView"];
     rift.window.rootViewController = vc;
     vc.view.frame = rift.window.bounds;
     [rift.window addSubview:vc.view];

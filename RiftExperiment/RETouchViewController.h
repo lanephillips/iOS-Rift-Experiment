@@ -31,7 +31,4 @@
 
 @interface RETouchViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIView *shadowView;
-@property (weak, nonatomic) IBOutlet UITextView *logView;
-
 @end

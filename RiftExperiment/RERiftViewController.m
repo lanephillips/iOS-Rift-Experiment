@@ -96,7 +96,8 @@ GLfloat gCubeVertexData[216] =
     -0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
 };
 
-@interface RERiftViewController () {
+@interface RERiftViewController ()
+{
     GLuint _program;
     
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -427,12 +428,5 @@ GLfloat gCubeVertexData[216] =
     
     return YES;
 }
-
-#pragma mark - auto rotation
-
-//-(NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskLandscape;
-//}
 
 @end
