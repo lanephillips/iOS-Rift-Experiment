@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="HYf-bN-oDK">
+    <dependencies>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--Rift View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController storyboardIdentifier="riftView" autoresizesArchivedViewToFullSize="NO" id="2" customClass="RERiftViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aW6-3w-rEe"/>
+                        <viewControllerLayoutGuide type="bottom" id="w8n-Px-EtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3" customClass="GLKView">
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="720"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="1280" height="720"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="94"/>
+        </scene>
+        <!--Touch View Controller-->
+        <scene sceneID="KQx-XB-kWK">
+            <objects>
+                <viewController storyboardIdentifier="touchView" id="HYf-bN-oDK" customClass="RETouchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DjN-8O-eBr"/>
+                        <viewControllerLayoutGuide type="bottom" id="IW7-ny-qTn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ipN-Lv-K0A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Log" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3V8-Ii-6c2">
+                                <rect key="frame" x="20" y="20" width="30" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1M-4T-SS1">
+                                <rect key="frame" x="20" y="49" width="280" height="499"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWG-kf-hfv">
+                                <rect key="frame" x="20" y="49" width="280" height="499"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GWG-kf-hfv" firstAttribute="leading" secondItem="ipN-Lv-K0A" secondAttribute="leading" constant="20" id="Ayn-1q-E5v"/>
+                            <constraint firstItem="C1M-4T-SS1" firstAttribute="leading" secondItem="GWG-kf-hfv" secondAttribute="leading" id="DLs-IS-r2u"/>
+                            <constraint firstItem="C1M-4T-SS1" firstAttribute="bottom" secondItem="GWG-kf-hfv" secondAttribute="bottom" id="DXm-1C-itH"/>
+                            <constraint firstItem="IW7-ny-qTn" firstAttribute="top" secondItem="GWG-kf-hfv" secondAttribute="bottom" constant="20" id="VLc-xW-bse"/>
+                            <constraint firstItem="3V8-Ii-6c2" firstAttribute="leading" secondItem="ipN-Lv-K0A" secondAttribute="leading" constant="20" id="YSN-yD-dKZ"/>
+                            <constraint firstAttribute="trailing" secondItem="GWG-kf-hfv" secondAttribute="trailing" constant="20" id="bZM-oh-iGp"/>
+                            <constraint firstItem="3V8-Ii-6c2" firstAttribute="top" secondItem="DjN-8O-eBr" secondAttribute="bottom" id="cAb-Sy-uci"/>
+                            <constraint firstItem="C1M-4T-SS1" firstAttribute="top" secondItem="GWG-kf-hfv" secondAttribute="top" id="kKG-aK-8HD"/>
+                            <constraint firstItem="C1M-4T-SS1" firstAttribute="trailing" secondItem="GWG-kf-hfv" secondAttribute="trailing" id="pVv-0B-gS9"/>
+                            <constraint firstItem="GWG-kf-hfv" firstAttribute="top" secondItem="3V8-Ii-6c2" secondAttribute="bottom" constant="8" id="wNf-eb-JEE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logView" destination="GWG-kf-hfv" id="KwX-FG-68a"/>
+                        <outlet property="shadowView" destination="C1M-4T-SS1" id="ZOL-nP-DcB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N9W-L7-95f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="199" y="89"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
