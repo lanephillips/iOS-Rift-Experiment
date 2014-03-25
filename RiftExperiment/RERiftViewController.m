@@ -2,11 +2,11 @@
 //  RERiftViewController.m
 //  RiftExperiment
 //
-//  Created by Lane Phillips on 5/1/13.
+//  Created by Lane Phillips (@bugloaf) on 5/1/13.
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2013 Milk LLC.
+//  Copyright (c) 2013 Milk LLC (@Milk_LLC).
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
