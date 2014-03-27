@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D12068F18E4CA4800B226C3 /* PostProcessVertexShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3D12068E18E4CA4800B226C3 /* PostProcessVertexShader.vsh */; };
+		3D12069118E4CA8000B226C3 /* PostProcessFragShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3D12069018E4CA7F00B226C3 /* PostProcessFragShader.fsh */; };
+		3D12069318E4CA9500B226C3 /* PostProcessFullFragShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3D12069218E4CA9500B226C3 /* PostProcessFullFragShader.fsh */; };
 		A688F77D17315AD800D0260E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A688F77C17315AD800D0260E /* UIKit.framework */; };
 		A688F77F17315AD800D0260E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A688F77E17315AD800D0260E /* Foundation.framework */; };
 		A688F78117315AD800D0260E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A688F78017315AD800D0260E /* CoreGraphics.framework */; };
@@ -28,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D12068E18E4CA4800B226C3 /* PostProcessVertexShader.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; name = PostProcessVertexShader.vsh; path = Shaders/PostProcessVertexShader.vsh; sourceTree = "<group>"; };
+		3D12069018E4CA7F00B226C3 /* PostProcessFragShader.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; name = PostProcessFragShader.fsh; path = Shaders/PostProcessFragShader.fsh; sourceTree = "<group>"; };
+		3D12069218E4CA9500B226C3 /* PostProcessFullFragShader.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; name = PostProcessFullFragShader.fsh; path = Shaders/PostProcessFullFragShader.fsh; sourceTree = "<group>"; };
 		A688F77917315AD800D0260E /* RiftExperiment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiftExperiment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A688F77C17315AD800D0260E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A688F77E17315AD800D0260E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,8 +113,11 @@
 				A688F79017315AD800D0260E /* REAppDelegate.m */,
 				A688F79817315AD800D0260E /* MainStoryboard_iPhone.storyboard */,
 				A688F79B17315AD800D0260E /* MainStoryboard_iPad.storyboard */,
-				A688F79E17315AD800D0260E /* Shader.fsh */,
 				A688F7A017315AD800D0260E /* Shader.vsh */,
+				A688F79E17315AD800D0260E /* Shader.fsh */,
+				3D12068E18E4CA4800B226C3 /* PostProcessVertexShader.vsh */,
+				3D12069018E4CA7F00B226C3 /* PostProcessFragShader.fsh */,
+				3D12069218E4CA9500B226C3 /* PostProcessFullFragShader.fsh */,
 				A688F7AD17319E4F00D0260E /* RETouchViewController.h */,
 				A688F7AE17319E4F00D0260E /* RETouchViewController.m */,
 				A688F7A217315AD800D0260E /* RERiftViewController.h */,
@@ -188,7 +197,10 @@
 			files = (
 				A688F78B17315AD800D0260E /* InfoPlist.strings in Resources */,
 				A688F79317315AD800D0260E /* Default.png in Resources */,
+				3D12068F18E4CA4800B226C3 /* PostProcessVertexShader.vsh in Resources */,
 				A688F79517315AD800D0260E /* Default@2x.png in Resources */,
+				3D12069118E4CA8000B226C3 /* PostProcessFragShader.fsh in Resources */,
+				3D12069318E4CA9500B226C3 /* PostProcessFullFragShader.fsh in Resources */,
 				A688F79717315AD800D0260E /* Default-568h@2x.png in Resources */,
 				A688F79A17315AD800D0260E /* MainStoryboard_iPhone.storyboard in Resources */,
 				A688F79D17315AD800D0260E /* MainStoryboard_iPad.storyboard in Resources */,
