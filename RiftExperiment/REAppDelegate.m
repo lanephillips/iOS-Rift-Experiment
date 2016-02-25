@@ -26,6 +26,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
+//  check.1
+//  check.2
+
+
 
 #import "REAppDelegate.h"
 #import "RERiftDisplay.h"
